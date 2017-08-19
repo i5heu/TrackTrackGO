@@ -1,0 +1,12 @@
+<script>
+
+function optout(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    alert("Tracking Disabled");
+}
+
+</script>
+<input id="clickMe" type="button" value="Tracking OFF" onclick="optout('optout', 'true', 190);" />
