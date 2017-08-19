@@ -12,9 +12,12 @@ type AdminSTRUCT struct {
 }
 
 type AdminData struct {
-	Today int
-	Month int
-	Total int
+	TodayHits     int
+	MonthHits     int
+	TotalHits     int
+	TodayVisitors int
+	MonthVisitors int
+	TotalVisitors int
 }
 
 func AdminHandler(w http.ResponseWriter, r *http.Request) {
@@ -43,10 +46,19 @@ func AdminHandler(w http.ResponseWriter, r *http.Request) {
 
 	total := mysql1rowInt1("SELECT COUNT(*) AS a FROM visits")
 
+	todayVisitors := mysql1rowInt1("SELECT Count(Distinct Token) AS a FROM visits WHERE DATE(time) = CURDATE()")
+
+	montlyVisitors := mysql1rowInt1("SELECT Count(Distinct Token) AS a FROM visits WHERE MONTH(time) = MONTH(CURRENT_DATE()) AND YEAR(time) = YEAR(CURRENT_DATE())")
+
+	totalVisitors := mysql1rowInt1("SELECT Count(Distinct Token) AS a FROM visits")
+
 	data := AdminData{
-		Today: today,
-		Month: montly,
-		Total: total,
+		TodayHits:     today,
+		MonthHits:     montly,
+		TotalHits:     total,
+		TodayVisitors: todayVisitors,
+		MonthVisitors: montlyVisitors,
+		TotalVisitors: totalVisitors,
 	}
 
 	foo, _ := json.Marshal(data)

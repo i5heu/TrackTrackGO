@@ -62,7 +62,7 @@
                           data:JSON.stringify(data),
                           success: function (response){
                                 var json = $.parseJSON(response);
-                                  $("#ApiContainer").html("Today:" + json.Today + "<br>This Month:" + json.Month + "<br>Total:" + json.Total );
+                                  $("#ApiContainer").html("TodayHits:" + json.TodayHits + "<br>This MonthHits:" + json.MonthHits + "<br>TotalHits:" + json.TotalHits + "<br>TodayVisitors:" + json.TodayVisitors + "<br>This MonthVisitors:" + json.MonthVisitors + "<br>TotalVisitors:" + json.TotalVisitors );
                                 console.log("DataLoaded");
                               }
                     });
